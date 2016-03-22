@@ -1,0 +1,19 @@
+{
+  "name": "esrinl-angular-geoform",
+  "version": "1.0.0",
+  "description": "EsriNL GeoForm App",
+  "main": "src/js/index.js",
+  "dependencies": {
+    "angular-esri-map": "^2.0.0-beta.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-compress": "^1.1.1",
+    "grunt-contrib-jshint": "^1.0.0"
+  }
+}

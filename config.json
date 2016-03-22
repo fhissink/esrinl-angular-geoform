@@ -1,0 +1,7 @@
+{
+	"webServer": {
+		"port": 8080,
+		"folder": "src",
+		"html5Mode": false
+	}
+}
