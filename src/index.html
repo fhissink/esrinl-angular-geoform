@@ -3,10 +3,11 @@
 
 <head>
   <title>EsriNL GeoForm AngularJS</title>
-  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <meta charset="utf-8">
-  <link rel="stylesheet" href="//js.arcgis.com/4.0beta3/esri/css/main.css">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+
+  <link rel="stylesheet" href="//js.arcgis.com/4.0beta3/esri/css/main.css">
   <!-- Bootstrap Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <!-- Bootstrap Optional theme -->
@@ -28,19 +29,14 @@
           <input name="widgetName" type="text" class="form-control" required>
         </label>
       </div>
-      <!-- <div ng-controller="GeoFormCtrl">
+      <div ng-controller="GeoFormCtrl">
         {{message}}
-      </div> -->
-      <div style="width: 500px; height:500px;">
+      </div>
+      <div>
         <div ng-controller="FeatureLayerCtrl as vm">
-          <esri-map-view map="vm.map" view-options="{
-        extent: {
-            xmin: -9177811,
-            ymin: 4247000,
-            xmax: -9176791,
-            ymax: 4247784,
-            spatialReference: 102100
-        }}">
+          <esri-map-view
+          map="vm.map"
+          view-options="{ extent: { xmin: -9177811, ymin: 4247000, xmax: -9176791, ymax: 4247784, spatialReference: 102100 }}">
           </esri-map-view>
         </div>
       </div>

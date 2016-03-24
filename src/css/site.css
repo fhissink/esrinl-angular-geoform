@@ -1,3 +1,15 @@
 body {
-  color: #2a2a2a;
+  color: black;
+}
+
+h1 {
+  color: #A2A2A2;
+}
+
+
+
+.esri-home {
+  position: absolute;
+  top: 160px;
+  left: 23px;
 }

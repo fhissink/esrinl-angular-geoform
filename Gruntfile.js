@@ -4,16 +4,23 @@ module.exports = function(grunt) {
     compress: {
       main: {
         options: {
-          archive: "archive.zip"
+          archive: 'archive.zip'
         },
         files: [{
-          src: "*",
-          cwd: "dist/"
+          src: '*',
+          cwd: 'dist/'
         }]
+      }
+    },
+    jshint: {
+      src: 'src/js/**',
+      options: {
+        ignores: ['src/js/ng/*.js']
       }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-compress');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.registerTask('default', ['compress']);
 };
