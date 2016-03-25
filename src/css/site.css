@@ -1,15 +1,13 @@
-body {
-  color: black;
+.geoform-draw-buttons {
+    margin-bottom: 15px;
 }
 
-h1 {
-  color: #A2A2A2;
+.draw-help-text {
+    display: inline-block;
+    margin: 0 5px 0 5px;
 }
 
-
-
-.esri-home {
-  position: absolute;
-  top: 160px;
-  left: 23px;
+.geoform-error-message {
+    color:red;
+    font-weight:bold;
 }

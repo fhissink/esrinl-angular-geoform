@@ -17,28 +17,75 @@
 <body>
     <main ng-app="GeoFormApp" class="container">
         <header>
-            <h1>GeoForm</h1>
+            <h1>Geoform</h1>
         </header>
-
         <main ng-controller="FeatureLayerCtrl">
-            <form>
-                <div ng-hide="fields">
-                    <p>Loading...</p>
+            <div ng-hide="fields">
+                <p>Loading...</p>
+            </div>
+            <form name="geoform" novalidate>
+                <div class="form-group" ng-show="fields">
+                    <fieldset>
+                        <legend>Enter the information</legend>
+                        <div ng-repeat="field in fields">
+
+                            <div ng-if="field.fieldType == 'esriFieldTypeString'">
+                                <label>
+                                    {{field.fieldAlias}}
+                                    <input name="input{{field.fieldName}}" type="text" ng-model="attributes[field.fieldName]" class="form-control" required>
+                                </label>
+                            </div>
+                            <div ng-if="field.fieldType == 'esriFieldTypeInteger'">
+                                <label>
+                                    {{field.fieldAlias}}
+                                    <input name="input{{field.fieldName}}" type="number" ng-model="attributes[field.fieldName]" class="form-control" required>
+
+                                </label>
+                            </div>
+                            <div ng-if="field.fieldType == 'esriFieldTypeDate'">
+                                <label>
+                                    {{field.fieldAlias}}
+                                    <input name="input{{field.fieldName}}" type="date" value="2016-03-25" ng-model="attributes[field.fieldName]" class="form-control" required>
+                                </label>
+                            </div>
+                            <div ng-if="field.fieldType == 'esriFieldTypeDouble'">
+                                <label>
+                                    {{field.fieldAlias}}
+                                    <input name="input{{field.fieldName}}" type="number" step="0.01" min="0" ng-model="attributes[field.fieldName]" class="form-control" required>
+                                </label>
+                            </div>
+                            <div>
+                                <span ng-show="geoform.input{{field.fieldName}}.$invalid && geoform.input{{field.fieldName}}.$touched">
+                                    Please enter a value for this field.
+                                </span>
+                            </div>
+                        </div>
+                    </fieldset>
                 </div>
                 <div class="form-group">
-                    <div ng-repeat="field in fields" ng-show="fields">
-                        <label>
-                            {{field.fieldAlias}}
-                            <input name="input{{field.fieldName}}" type="text" class="form-control" required>
-                        </label>
+                    <fieldset>
+                        <legend>Draw on the map</legend>
+                        <div class="geoform-draw-buttons">
+                            <div class="btn btn-default" ng-click="startDrawing('FreehandPolygon')">
+                                <img src="images/draw_freehand_polygon.png" width="28" />
+                            </div>
+                            <div class="btn btn-default" ng-click="startDrawing('Polygon')">
+                                <img src="images/draw_polygon.png" width="28" />
+                            </div>
+                            <div class="draw-help-text" ng-show="drawingEnabled">
+                                Draw your feature on the map
+                            </div>
+                        </div>
+
+                        <esri-map id="map" map-options="{ basemap: 'streets', center: [5.11, 52.09], zoom: 13 }" load="onMapLoad">
+                        </esri-map>
+                    </fieldset>
+                </div>
+                <div class="form-group">
+                    <button ng-click="addFeature(geoformfield)" class="btn btn-default">Submit form</button>
+                    <div ng-show="invalidForm" class="geoform-error-message">
+                        <p>Please fill out the form correctly and draw a polygon on the map.</p>
                     </div>
-                </div>
-                <div class="form-group">
-                    <esri-map id="map" map-options="{ basemap: 'streets', center: [5.11, 52.09], zoom: 13 }" load="onMapLoad">
-                    </esri-map>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default">Submit form</button>
                 </div>
             </form>
         </main>
