@@ -2,23 +2,38 @@
     "use strict";
 
     angular.module("GeoFormApp", ['esri.map'])
-      .controller("GeoFormCtrl", function ($scope) {
-          $scope.message = "Hello from controller";
-      })
-      .controller('FeatureLayerCtrl', function (esriLoader) {
-          var self = this;
-          esriLoader.require(['esri/Map', 'esri/layers/FeatureLayer', 'dojo/domReady!'], function (Map, FeatureLayer) {
-              var sampleLayer = new FeatureLayer({
-                  url: "http://services.arcgis.com/emS4w7iyWEQiulAb/arcgis/rest/services/EsriNL_GeoForm/FeatureServer/0"
-              });
+      .controller('FeatureLayerCtrl', function ($scope, esriLoader) {
+          $scope.onMapLoad = function (map) {
+              esriLoader.require(['esri/geometry/Extent',
+                  'esri/layers/FeatureLayer',
+                  'dojo/_base/array',
+                  'dojo/on'],
+                  function (Extent,
+                      FeatureLayer,
+                      array,
+                      on) {
+                      var layer = new FeatureLayer("http://services.arcgis.com/emS4w7iyWEQiulAb/arcgis/rest/services/EsriNL_GeoForm/FeatureServer/0", {
+                          outFields: ["*"]
+                      });
+                      layer.on('load', function (loadedLayer) {
+                          var fields = array.map(layer.fields, function (field) {
+                              if (field.name !== 'OBJECTID') {
+                                  return {
+                                      fieldName: field.name,
+                                      fieldAlias: field.alias
+                                  };
+                              }
+                          });
+                          fields = array.filter(fields, function (field) { return field !== undefined; });
+                          console.log(fields);
 
-              self.map = new Map({
-                  basemap: 'streets',
-                  layers: [sampleLayer]
-              });
+                          $scope.$apply(function () {
+                              $scope.fields = fields;
+                          });
+                      });
 
-
-          });
+                      map.addLayer(layer);
+                  });
+          };
       });
-
 })(angular);
